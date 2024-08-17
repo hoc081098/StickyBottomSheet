@@ -7,6 +7,8 @@ import android.view.View
 import androidx.annotation.CheckResult
 import androidx.annotation.Px
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -26,6 +28,8 @@ val Activity.windowHeight: Int
         return displayMetrics.heightPixels
     }
 
+fun BottomSheetDialogFragment.requireBottomSheetBehavior() =
+    (dialog as BottomSheetDialog).behavior
 
 @CheckResult
 fun BottomSheetBehavior<*>.bottomSheetSlides(): Flow<Float> = callbackFlow {

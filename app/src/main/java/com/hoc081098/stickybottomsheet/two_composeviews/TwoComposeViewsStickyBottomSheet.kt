@@ -18,7 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
 import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.unit.dp
 import androidx.core.view.updateLayoutParams
@@ -32,6 +32,7 @@ import com.hoc081098.stickybottomsheet.R
 import com.hoc081098.stickybottomsheet.bottomSheetDialogDefaultHeight
 import com.hoc081098.stickybottomsheet.bottomSheetSlides
 import com.hoc081098.stickybottomsheet.databinding.FragmentTwoComposeViewsStickyBottomSheetBinding
+import com.hoc081098.stickybottomsheet.requireBottomSheetBehavior
 import com.hoc081098.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
@@ -55,7 +56,8 @@ class TwoComposeViewsStickyBottomSheet :
         super.onViewCreated(view, savedInstanceState)
 
         val items = List(100) { "Item $it" }
-        binding.composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+
+        binding.composeView.setViewCompositionStrategy(DisposeOnViewTreeLifecycleDestroyed)
         binding.composeView.setContent {
             val nestedScrollConnection = rememberNestedScrollInteropConnection()
             MaterialTheme {
@@ -80,7 +82,8 @@ class TwoComposeViewsStickyBottomSheet :
             }
         }
 
-        binding.sheetButtonComposeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+        binding.sheetButtonComposeView
+            .setViewCompositionStrategy(DisposeOnViewTreeLifecycleDestroyed)
         binding.sheetButtonComposeView.setContent {
             MaterialTheme {
                 Button(
@@ -99,14 +102,14 @@ class TwoComposeViewsStickyBottomSheet :
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private fun observeBottomSheetSlides() {
-        val dialog = requireDialog() as BottomSheetDialog
+        val bottomSheetBehavior = requireBottomSheetBehavior()
 
         val topMarginFlow = buttonHeightFlow
             .flatMapLatest { buttonHeight ->
-                dialog.behavior
+                bottomSheetBehavior
                     .bottomSheetSlides()
                     .buffer(Channel.UNLIMITED)
-                    .onStart { emit(dialog.behavior.calculateSlideOffset()) }
+                    .onStart { emit(bottomSheetBehavior.calculateSlideOffset()) }
                     .map { slideOffset ->
                         check(collapsedMargin > 0) { "collapsedMargin must be greater than 0" }
                         check(expandedHeight > 0) { "collapsedMargin must be greater than 0" }
@@ -145,10 +148,6 @@ class TwoComposeViewsStickyBottomSheet :
             com.google.android.material.R.id.design_bottom_sheet
         ) ?: return
 
-        // Retrieve bottom sheet parameters
-        val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-            .apply { state = BottomSheetBehavior.STATE_COLLAPSED }
-
         // Calculate expanded height and peek height
         expandedHeight = requireActivity().bottomSheetDialogDefaultHeight
         val peekHeight =
@@ -156,9 +155,12 @@ class TwoComposeViewsStickyBottomSheet :
 
         // Setup bottom sheet
         bottomSheet.updateLayoutParams { this.height = expandedHeight }
-        bottomSheetBehavior.skipCollapsed = false
-        bottomSheetBehavior.peekHeight = peekHeight
-        bottomSheetBehavior.isHideable = true
+        bottomSheetDialog.behavior.run {
+            state = BottomSheetBehavior.STATE_COLLAPSED
+            skipCollapsed = false
+            this.peekHeight = peekHeight
+            isHideable = true
+        }
 
         // Calculate button margin from top
         buttonHeightFlow.value =
@@ -172,8 +174,6 @@ class TwoComposeViewsStickyBottomSheet :
     }
 
     companion object {
-        fun newInstance(): TwoComposeViewsStickyBottomSheet {
-            return TwoComposeViewsStickyBottomSheet()
-        }
+        fun newInstance(): TwoComposeViewsStickyBottomSheet = TwoComposeViewsStickyBottomSheet()
     }
 }

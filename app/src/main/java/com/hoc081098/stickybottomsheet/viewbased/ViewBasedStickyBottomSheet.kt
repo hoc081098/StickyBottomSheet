@@ -1,9 +1,7 @@
 package com.hoc081098.stickybottomsheet.viewbased
 
-import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
 import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -67,22 +65,19 @@ class ViewBasedStickyBottomSheet :
             com.google.android.material.R.id.design_bottom_sheet
         ) ?: return
 
-        // Retrieve bottom sheet parameters
-        val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-            .apply { state = BottomSheetBehavior.STATE_COLLAPSED }
-
         // Calculate expanded height and peek height
         expandedHeight = requireActivity().bottomSheetDialogDefaultHeight
         val peekHeight =
             (expandedHeight * 0.7f).toInt() // Peek height to 70% of expanded height (Change based on your view)
 
         // Setup bottom sheet
-        bottomSheet.updateLayoutParams {
-            this.height = expandedHeight
+        bottomSheet.updateLayoutParams { this.height = expandedHeight }
+        bottomSheetDialog.behavior.run {
+            state = BottomSheetBehavior.STATE_COLLAPSED
+            skipCollapsed = false
+            this.peekHeight = peekHeight
+            isHideable = true
         }
-        bottomSheetBehavior.skipCollapsed = false
-        bottomSheetBehavior.peekHeight = peekHeight
-        bottomSheetBehavior.isHideable = true
 
         // Calculate button margin from top
         buttonHeight =
