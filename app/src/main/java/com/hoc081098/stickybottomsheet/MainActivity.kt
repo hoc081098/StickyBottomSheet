@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.hoc081098.stickybottomsheet.databinding.ActivityMainBinding
+import com.hoc081098.stickybottomsheet.one_composeview.OneComposeViewStickyBottomSheet
 import com.hoc081098.stickybottomsheet.two_composeviews.TwoComposeViewsStickyBottomSheet
 import com.hoc081098.stickybottomsheet.viewbased.ViewBasedStickyBottomSheet
 import com.hoc081098.viewbindingdelegate.viewBinding
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             )
         }
         binding.buttonOneComposeview.setOnClickListener {
+            OneComposeViewStickyBottomSheet.newInstance().show(
+                supportFragmentManager,
+                OneComposeViewStickyBottomSheet::class.java.simpleName,
+            )
         }
         binding.buttonTwoComposeview.setOnClickListener {
             TwoComposeViewsStickyBottomSheet.newInstance().show(

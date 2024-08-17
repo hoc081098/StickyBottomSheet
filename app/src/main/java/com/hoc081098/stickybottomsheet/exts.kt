@@ -13,6 +13,8 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 @get:Px
 val Activity.bottomSheetDialogDefaultHeight: Int
@@ -46,3 +48,30 @@ fun BottomSheetBehavior<*>.bottomSheetSlides(): Flow<Float> = callbackFlow {
     addBottomSheetCallback(callback)
     awaitClose { removeBottomSheetCallback(callback) }
 }.conflate()
+
+suspend fun View.awaitLaidOut() {
+    if (isLaidOut && !isLayoutRequested) {
+        return
+    }
+    suspendCancellableCoroutine<Unit> { cont ->
+        val listener = object : View.OnLayoutChangeListener {
+            override fun onLayoutChange(
+                view: View,
+                left: Int,
+                top: Int,
+                right: Int,
+                bottom: Int,
+                oldLeft: Int,
+                oldTop: Int,
+                oldRight: Int,
+                oldBottom: Int
+            ) {
+                view.removeOnLayoutChangeListener(this)
+                cont.resume(Unit)
+            }
+        }
+
+        addOnLayoutChangeListener(listener)
+        cont.invokeOnCancellation { removeOnLayoutChangeListener(listener) }
+    }
+}
