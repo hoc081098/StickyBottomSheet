@@ -34,6 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hoc081098.stickybottomsheet.databinding.ActivityMainBinding
+import com.hoc081098.stickybottomsheet.two_composeviews.TwoComposeViewsStickyBottomSheet
 import com.hoc081098.stickybottomsheet.viewbased.ViewBasedStickyBottomSheet
 import com.hoc081098.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.delay
@@ -59,6 +60,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             ViewBasedStickyBottomSheet.newInstance().show(
                 supportFragmentManager,
                 ViewBasedStickyBottomSheet::class.java.simpleName
+            )
+        }
+        binding.buttonOneComposeview.setOnClickListener {
+            DemoBottomSheetFragment().show(
+                supportFragmentManager,
+                DemoBottomSheetFragment::class.java.simpleName
+            )
+        }
+        binding.buttonTwoComposeview.setOnClickListener {
+            TwoComposeViewsStickyBottomSheet().show(
+                supportFragmentManager,
+                TwoComposeViewsStickyBottomSheet::class.java.simpleName
             )
         }
     }

@@ -15,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hoc081098.stickybottomsheet.R
+import com.hoc081098.stickybottomsheet.bottomSheetDialogDefaultHeight
 import com.hoc081098.stickybottomsheet.databinding.FragmentViewBasedStickyBottomSheetBinding
 import com.hoc081098.viewbindingdelegate.viewBinding
 
@@ -25,8 +26,8 @@ class ViewBasedStickyBottomSheet :
     BottomSheetDialogFragment(R.layout.fragment_view_based_sticky_bottom_sheet) {
     private val binding by viewBinding<FragmentViewBasedStickyBottomSheetBinding>()
 
-    private var collapsedMargin = 0
     private var buttonHeight = 0
+    private var collapsedMargin = 0
     private var expandedHeight = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,7 +72,7 @@ class ViewBasedStickyBottomSheet :
             .apply { state = BottomSheetBehavior.STATE_COLLAPSED }
 
         // Calculate expanded height and peek height
-        expandedHeight = bottomSheetDialogDefaultHeight
+        expandedHeight = requireActivity().bottomSheetDialogDefaultHeight
         val peekHeight =
             (expandedHeight * 0.7f).toInt() // Peek height to 70% of expanded height (Change based on your view)
 
@@ -101,18 +102,6 @@ class ViewBasedStickyBottomSheet :
                 (k * buttonHeight).toInt() // Recyclerview bottom margin (from button)
         }
     }
-
-    private val bottomSheetDialogDefaultHeight: Int
-        // Calculates height for 90% of fullscreen
-        get() = windowHeight * 90 / 100
-
-    private val windowHeight: Int
-        // Calculates window height for fullscreen use
-        get() {
-            val displayMetrics = DisplayMetrics()
-            (requireContext() as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
-            return displayMetrics.heightPixels
-        }
 
     companion object {
         fun newInstance(): ViewBasedStickyBottomSheet = ViewBasedStickyBottomSheet()

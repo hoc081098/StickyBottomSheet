@@ -1,13 +1,31 @@
 package com.hoc081098.stickybottomsheet
 
+import android.app.Activity
 import android.os.Looper
+import android.util.DisplayMetrics
 import android.view.View
 import androidx.annotation.CheckResult
+import androidx.annotation.Px
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
+
+@get:Px
+val Activity.bottomSheetDialogDefaultHeight: Int
+    // Calculates height for 90% of fullscreen
+    get() = windowHeight * 90 / 100
+
+@get:Px
+val Activity.windowHeight: Int
+    get() {
+        // Calculates window height for fullscreen use
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics.heightPixels
+    }
+
 
 @CheckResult
 fun BottomSheetBehavior<*>.bottomSheetSlides(): Flow<Float> = callbackFlow {

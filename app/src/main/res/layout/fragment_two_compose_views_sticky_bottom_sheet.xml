@@ -28,7 +28,7 @@
         app:layout_constraintWidth_percent="0.65" />
 
     <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/compsoeView"
+        android:id="@+id/compose_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -40,19 +40,9 @@
         app:layout_constraintTop_toBottomOf="@+id/sheet_title" />
 
     <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/sheet_button"
+        android:id="@+id/sheet_button_compose_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:elegantTextHeight="true"
-        android:gravity="center"
-        android:letterSpacing="0"
-        android:paddingTop="8dp"
-        android:paddingBottom="11dp"
-        android:text="Button"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        app:backgroundTint="@android:color/holo_blue_dark"
-        app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
