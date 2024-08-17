@@ -10,7 +10,7 @@ Bottom sheet dialog fragment with sticky button on bottom of dialog.
 <details>
     <summary>Click to expand video</summary>
 
-    https://github.com/user-attachments/assets/9eb3371e-0520-4e5b-b212-63c62e55e4f7
+https://github.com/user-attachments/assets/9eb3371e-0520-4e5b-b212-63c62e55e4f7
 
 </details>
 
