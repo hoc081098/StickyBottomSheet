@@ -11,6 +11,7 @@ import com.hoc081098.stickybottomsheet.one_composeview.OneComposeViewStickyBotto
 import com.hoc081098.stickybottomsheet.overlay.OverlayActivity
 import com.hoc081098.stickybottomsheet.overlay.OverlayPresenter
 import com.hoc081098.stickybottomsheet.overlay.OverlayViewModel
+import com.hoc081098.stickybottomsheet.demoswitch.DemoSwitchActivity
 import com.hoc081098.stickybottomsheet.two_composeviews.TwoComposeViewsStickyBottomSheet
 import com.hoc081098.stickybottomsheet.viewbased.ViewBasedStickyBottomSheet
 import com.hoc081098.viewbindingdelegate.viewBinding
@@ -53,6 +54,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
         binding.buttonToFragment.setOnClickListener {
             startActivity(OverlayActivity.intent(this))
+        }
+        binding.buttonDemoSwitch.setOnClickListener {
+            startActivity(DemoSwitchActivity.createIntent(this))
         }
 
         OverlayPresenter(this).attach(lifecycleOwner = this)

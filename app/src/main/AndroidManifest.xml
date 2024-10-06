@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.hoc081098.stickybottomsheet.overlay.OverlayActivity" />
+        <activity android:name="com.hoc081098.stickybottomsheet.demoswitch.DemoSwitchActivity" />
     </application>
 
 </manifest>
