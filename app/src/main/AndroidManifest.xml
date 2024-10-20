@@ -23,6 +23,14 @@
         </activity>
         <activity android:name="com.hoc081098.stickybottomsheet.overlay.OverlayActivity" />
         <activity android:name="com.hoc081098.stickybottomsheet.demoswitch.DemoSwitchActivity" />
+
+        <activity
+            android:name="com.hoc081098.stickybottomsheet.demostack.DemoStackActivity"
+            android:launchMode="singleTask" />
+        <activity android:name="com.hoc081098.stickybottomsheet.demostack.Child1Activity" />
+        <activity
+            android:name="com.hoc081098.stickybottomsheet.GatewayActivity"
+            android:theme="@style/Theme.DemoBottomSheet.WhiteBackground" />
     </application>
 
 </manifest>

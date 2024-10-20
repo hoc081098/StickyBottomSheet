@@ -30,7 +30,7 @@
         android:id="@+id/button_one_composeview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="1 ComposeView"
         app:layout_constraintBottom_toTopOf="@+id/button_two_composeview"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
         android:id="@+id/button_two_composeview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="2 ComposeViews"
         app:layout_constraintBottom_toTopOf="@id/button_demo_switch"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,13 +54,25 @@
         android:id="@+id/button_demo_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Demo switch"
-        app:layout_constraintBottom_toBottomOf="@+id/frameLayout2"
+        app:layout_constraintBottom_toTopOf="@id/button_demo_stack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_two_composeview" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_demo_stack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Demo stack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_demo_switch" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_toggle"
